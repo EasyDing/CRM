@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <TableRow android:gravity="center">
+        <TextView
+                android:text="Rainbow Man"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_gravity="center"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:text="用户名："
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/uname"
+                android:hint="请输入用户名"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="密 码："
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/upass"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+    </TableRow>
+    <TableRow android:gravity="center">
+        <Button
+                android:id="@+id/submit"
+                android:text="登录"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </TableRow>
+    <TableRow>
+        <Button
+                android:id="@+id/order"
+                android:text="订单管理"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+        />
+
+        <Button
+                android:id="@+id/warehouse"
+                android:text="仓库管理"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+        />
+
+        <Button
+                android:id="@+id/guest"
+                android:text="客户管理"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+        />
+        <Button
+                android:id="@+id/financing"
+                android:text="账本管理"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+        />
+    </TableRow>
+</TableLayout>
+
