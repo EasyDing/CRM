@@ -68,7 +68,7 @@
         />
 
         <Button
-                android:id="@+id/guest"
+                android:id="@+id/client"
                 android:text="客户管理"
                 android:layout_width="0dp"
                 android:layout_weight="1"

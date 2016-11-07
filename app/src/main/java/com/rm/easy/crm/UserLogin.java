@@ -28,7 +28,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
 
     private Button orderManage;
     private Button warehouseManage;
-    private Button guestManage;
+    private Button clientManage;
     private Button financingManage;
     private Button sendMsg;
 
@@ -41,7 +41,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
         userPwd = (EditText) findViewById(R.id.upass);
         orderManage = (Button) findViewById(R.id.order);
         warehouseManage = (Button) findViewById(R.id.warehouse);
-        guestManage = (Button) findViewById(R.id.guest);
+        clientManage = (Button) findViewById(R.id.client);
         financingManage = (Button) findViewById(R.id.financing);
         sendMsg = (Button) findViewById(R.id.submit);
         sendMsg.setOnClickListener(this);
@@ -57,7 +57,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
                     String successRes = (String) msg.obj;
                     orderManage.setVisibility(VISIBLE);
                     warehouseManage.setVisibility(VISIBLE);
-                    guestManage.setVisibility(VISIBLE);
+                    clientManage.setVisibility(VISIBLE);
                     financingManage.setVisibility(VISIBLE);
                     Toast.makeText(UserLogin.this, successRes, Toast.LENGTH_SHORT).show();
                     break;
