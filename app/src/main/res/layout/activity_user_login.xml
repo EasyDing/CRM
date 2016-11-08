@@ -84,5 +84,25 @@
                 android:visibility="invisible"
         />
     </TableRow>
+    <TableRow android:id="@+id/client_tablerow" android:visibility="invisible">
+        <Button
+                android:id="@+id/client_new"
+                android:text="添加客户"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+        />
+    </TableRow>
+    <TableRow android:id="@+id/financing_tablerow" android:visibility="invisible">
+        <Button
+                android:id="@+id/financing_new"
+                android:text="添加账本"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+        />
+    </TableRow>
 </TableLayout>
 
