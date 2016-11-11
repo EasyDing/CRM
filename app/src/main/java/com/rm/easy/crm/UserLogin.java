@@ -100,7 +100,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
 
             case R.id.submit:
                 Log.i("UserLogin", "Click Submit");
-                String address = "http://192.168.31.218/www/user/select_user.php";
+                String address = "http://zkcoffee.imwork.net/user/select_user.php";
                 String reqStr = "uname=" + userName.getText() + "&upwd=" + userPwd.getText();
                 sendRequest(address, reqStr);
                 break;
