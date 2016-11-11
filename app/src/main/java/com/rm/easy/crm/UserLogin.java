@@ -90,7 +90,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
                     break;
                 case LOGIN_FAIL:
                     String failRes = (String) msg.obj;
-                    //判断网络链接情况，无返回表示网络不联通，进行重新握手；联通以后进行判断
+                    //判断网络链接情况，无返回表示网络不联通，进行重新握手；联通以后进行判断.
                     if(failRes.equals("")){
                         Toast.makeText(UserLogin.this, "建立连接中，请稍候", Toast.LENGTH_SHORT).show();
                         Timer timer = new Timer();
