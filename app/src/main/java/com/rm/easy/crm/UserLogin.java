@@ -16,6 +16,9 @@ import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static android.view.View.VISIBLE;
 
 
@@ -87,7 +90,24 @@ public class UserLogin extends Activity implements View.OnClickListener {
                     break;
                 case LOGIN_FAIL:
                     String failRes = (String) msg.obj;
-                    Toast.makeText(UserLogin.this, failRes, Toast.LENGTH_SHORT).show();
+                    //判断网络链接情况，无返回表示网络不联通，进行重新握手；联通以后进行判断
+                    if(failRes.equals("")){
+                        Toast.makeText(UserLogin.this, "建立连接中，请稍候", Toast.LENGTH_SHORT).show();
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Log.i("UserLogin", "Reconnecting");
+                                String address = "http://zkcoffee.imwork.net/user/select_user.php";
+                                String reqStr = "uname=" + userName.getText() + "&upwd=" + userPwd.getText();
+                                sendRequest(address, reqStr);
+                                this.cancel();
+                            }
+                        },5000);
+
+                    }else{
+                        Toast.makeText(UserLogin.this, failRes, Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
         }
