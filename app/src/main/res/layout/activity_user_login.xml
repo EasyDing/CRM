@@ -2,7 +2,7 @@
 <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
     <TableRow android:gravity="center">
         <TextView
@@ -93,6 +93,30 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
         />
+        <Button
+                android:id="@+id/client_renew"
+                android:text="更新客户"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+        />
+        <Button
+                android:id="@+id/client_select"
+                android:text="查看客户"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+        />
+        <Button
+                android:id="@+id/client_delete"
+                android:text="删除客户"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+        />
     </TableRow>
     <TableRow android:id="@+id/financing_tablerow" android:visibility="invisible">
         <Button
@@ -104,5 +128,7 @@
                 android:visibility="visible"
         />
     </TableRow>
+
+
 </TableLayout>
 

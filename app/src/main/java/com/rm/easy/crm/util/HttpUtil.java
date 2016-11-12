@@ -28,8 +28,8 @@ public class HttpUtil {
                     //使用write(str.getBytes())替换writeBytes(str)解决中文乱码问题，out.writeBytes(str);该语句在转中文时候，已经变成乱码
                     //所以在可能有中文字符输出的地方最好先将其转换为字节数组，然后再通过write写入流
                     out.write(reqStr.getBytes());
-                    connection.setConnectTimeout(8000);
-                    connection.setReadTimeout(8000);
+                    connection.setConnectTimeout(3000);
+                    connection.setReadTimeout(5000);
                     InputStream in = connection.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                     StringBuilder res = new StringBuilder();
