@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -21,13 +20,14 @@ import java.util.TimerTask;
 import static android.view.View.VISIBLE;
 
 
-public class UserLogin extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class UserLogin extends Activity implements View.OnClickListener{
 
     public static final int LOGIN_SUCCESS = 0;
     public static final int LOGIN_FAIL = 1;
     public static final int CLICK_CLIENT_MANAGE = 2;
     public static final int CLICK_FINANCING_MANAGE = 3;
     public static final int CONNECT_FAIL = 4;
+    public static final int CLIENT_CREATE_ACTIVITY = 101;
 
     Message message = new Message();
 
@@ -158,16 +158,12 @@ public class UserLogin extends Activity implements View.OnClickListener, RadioGr
 
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-
-    }
 
     private void sendRequest(String address, String reqStr){
        HttpUtil.sendHttpRequest(address, reqStr, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
-
+                Log.i("UserLogin", response);
                 JsonGeneral jsonGenerals = new GsonUtil().parseJsonWithGson(response, JsonGeneral.class);
                 Log.i("UserLogin", jsonGenerals.getStatus());
                 Message msg = new Message();
