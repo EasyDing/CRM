@@ -38,6 +38,45 @@ public class HttpUtil {
                         res.append(line);
                     }
                     if(listener != null){
+
+                        listener.onFinish(res.toString());
+                    }
+                } catch (Exception e){
+                    if(listener != null){
+                        listener.onError(e);
+                    }
+                }finally{
+                    if(connection != null){
+                        connection.disconnect();
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    public static void getHttpResponse(final String address, final HttpCallbackListener listener){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                HttpURLConnection connection = null;
+                try{
+                    URL url = new URL(address);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(3000);
+                    connection.setReadTimeout(5000);
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder res = new StringBuilder();
+                    String line;
+                    while((line = reader.readLine()) != null){
+                        res.append(line);
+                    }
+                    if(listener != null){
+
                         listener.onFinish(res.toString());
                     }
                 } catch (Exception e){

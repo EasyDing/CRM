@@ -1,20 +1,15 @@
-package com.rm.easy.crm;
+package com.rm.easy.crm.client;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.rm.easy.crm.bean.JsonGeneral;
+import com.rm.easy.crm.R;
+import com.rm.easy.crm.jsonBean.JsonGeneral;
 import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
@@ -39,7 +34,6 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
     private Button submit;
 
 
-
     private String sex;
 
 
@@ -47,23 +41,23 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_client);
-        clientName = (EditText)findViewById(R.id.clientname_edit);
-        clientPhone = (EditText)findViewById(R.id.clientphone_edit);
-        clientAdd = (EditText)findViewById(R.id.clientadd_edit);
+        clientName = (EditText) findViewById(R.id.clientname_edit);
+        clientPhone = (EditText) findViewById(R.id.clientphone_edit);
+        clientAdd = (EditText) findViewById(R.id.clientadd_edit);
 
-        clientSexRadioGroup = (RadioGroup)findViewById(R.id.clientsex_radiogroup);
+        clientSexRadioGroup = (RadioGroup) findViewById(R.id.clientsex_radiogroup);
 
         clientSexRadioGroup.setOnCheckedChangeListener(this);
 
-        submit = (Button)findViewById(R.id.client_submit);
+        submit = (Button) findViewById(R.id.client_submit);
         submit.setOnClickListener(this);
 
     }
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
 
-        public void handleMessage(Message msg){
-            switch (msg.what){
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 case CREATE_SUCCESS:
                     Toast.makeText(CreateClient.this, "保存成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -77,12 +71,12 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
                         @Override
                         public void run() {
                             Log.i("CreateClient", "Reconnecting");
-                            String reqStr = "clientName=" + clientName.getText() +"&clientPhone=" + clientPhone.getText() + "&clientAdd=" + clientAdd.getText() + "&clientSex=" + getSex();
-                            String address = "http://zkcoffee.imwork.net/client/createclient.php";
+                            String reqStr = "clientName=" + clientName.getText() + "&clientPhone=" + clientPhone.getText() + "&clientAdd=" + clientAdd.getText() + "&clientSex=" + getSex();
+                            String address = "http://zkcoffee.imwork.net/client/create_client.php";
                             sendRequest(address, reqStr);
                             this.cancel();
                         }
-                    },500);
+                    }, 500);
                     break;
             }
         }
@@ -91,17 +85,17 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.client_submit:
                 Log.i("CreateClient", clientName.getText().toString());
-                if(clientName.getText().toString().equals("") || clientPhone.getText().toString().equals("") || getSex() == null) {
+                if (clientName.getText().toString().equals("") || clientPhone.getText().toString().equals("") || getSex() == null) {
                     Toast.makeText(CreateClient.this, "请输入客户姓名、电话和性别", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(ValidatorUtil.isMobile(clientPhone.getText().toString())){
+                } else {
+                    if (ValidatorUtil.isMobile(clientPhone.getText().toString())) {
                         String str = "clientName=" + clientName.getText() + "&clientPhone=" + clientPhone.getText() + "&clientAdd=" + clientAdd.getText() + "&clientSex=" + getSex();
-                        String address = "http://zkcoffee.imwork.net/client/createclient.php";
+                        String address = "http://zkcoffee.imwork.net/client/create_client.php";
                         sendRequest(address, str);
-                    }else{
+                    } else {
                         Toast.makeText(CreateClient.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -112,12 +106,12 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-        RadioButton rb = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+        RadioButton rb = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
         setSex(rb.getText().toString());
 
     }
 
-    private void sendRequest(String address, String str){
+    private void sendRequest(String address, String str) {
         HttpUtil.sendHttpRequest(address, str, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
@@ -125,9 +119,9 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
                 JsonGeneral jsonGeneral = new GsonUtil().parseJsonWithGson(response, JsonGeneral.class);
                 Log.i("CreateClient", jsonGeneral.getStatus());
                 Message msg = new Message();
-                if (jsonGeneral.getStatus().equals("Success")){
+                if (jsonGeneral.getStatus().equals("Success")) {
                     msg.what = CREATE_SUCCESS;
-                }else{
+                } else {
                     msg.what = CREATE_FAIL;
                 }
                 msg.obj = jsonGeneral.getStatus();

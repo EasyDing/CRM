@@ -1,4 +1,4 @@
-package com.rm.easy.crm.bean;
+package com.rm.easy.crm.jsonBean;
 
 import java.util.List;
 

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.rm.easy.crm.bean.JsonGeneral;
+import com.rm.easy.crm.jsonBean.JsonGeneral;
+import com.rm.easy.crm.client.CreateClient;
+import com.rm.easy.crm.client.SelectClient;
 import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
@@ -20,7 +22,7 @@ import java.util.TimerTask;
 import static android.view.View.VISIBLE;
 
 
-public class UserLogin extends Activity implements View.OnClickListener{
+public class UserLogin extends Activity implements View.OnClickListener {
 
     public static final int LOGIN_SUCCESS = 0;
     public static final int LOGIN_FAIL = 1;
@@ -50,8 +52,6 @@ public class UserLogin extends Activity implements View.OnClickListener{
     private TableRow financingTableRow;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +69,9 @@ public class UserLogin extends Activity implements View.OnClickListener{
         financingManage = (Button) findViewById(R.id.financing);
         sendMsg = (Button) findViewById(R.id.submit);
         creatClient = (Button) findViewById(R.id.client_new);
-        renewClient = (Button)findViewById(R.id.client_renew);
-        selectClient = (Button)findViewById(R.id.client_select);
-        deleteClient = (Button)findViewById(R.id.client_delete);
+        renewClient = (Button) findViewById(R.id.client_renew);
+        selectClient = (Button) findViewById(R.id.client_select);
+        deleteClient = (Button) findViewById(R.id.client_delete);
         creatFinancing = (Button) findViewById(R.id.financing_new);
         orderManage.setOnClickListener(this);
         warehouseManage.setOnClickListener(this);
@@ -88,10 +88,10 @@ public class UserLogin extends Activity implements View.OnClickListener{
     }
 
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
 
-        public void handleMessage(Message msg){
-            switch (msg.what){
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 case LOGIN_SUCCESS:
                     //登录成功显示管理按钮
                     String successRes = (String) msg.obj;
@@ -99,7 +99,7 @@ public class UserLogin extends Activity implements View.OnClickListener{
                     warehouseManage.setVisibility(VISIBLE);
                     clientManage.setVisibility(VISIBLE);
                     financingManage.setVisibility(VISIBLE);
-                    Toast.makeText(UserLogin.this, successRes, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                     break;
                 case LOGIN_FAIL:
                     String failRes = (String) msg.obj;
@@ -119,16 +119,17 @@ public class UserLogin extends Activity implements View.OnClickListener{
                             sendRequest(address, reqStr);
                             this.cancel();
                         }
-                    },500);
+                    }, 500);
                     break;
             }
         }
 
     };
 
+    //处理按钮点击
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.submit:
                 Log.i("UserLogin", "Click Submit");
@@ -149,18 +150,22 @@ public class UserLogin extends Activity implements View.OnClickListener{
                 break;
             case R.id.client_new:
                 Log.i("UserLogin", "Click Create Client");
-                Intent it = new Intent(UserLogin.this, CreateClient.class);
-                startActivity(it);
+                Intent createClientIntent = new Intent(UserLogin.this, CreateClient.class);
+                startActivity(createClientIntent);
                 break;
-
+            case R.id.client_select:
+                Log.i("UserLogin", "Click Select Client");
+                Intent selectClientIntent = new Intent(UserLogin.this, SelectClient.class);
+                startActivity(selectClientIntent);
+                break;
 
         }
 
     }
 
 
-    private void sendRequest(String address, String reqStr){
-       HttpUtil.sendHttpRequest(address, reqStr, new HttpCallbackListener() {
+    private void sendRequest(String address, String reqStr) {
+        HttpUtil.sendHttpRequest(address, reqStr, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
                 Log.i("UserLogin", response);
@@ -168,9 +173,9 @@ public class UserLogin extends Activity implements View.OnClickListener{
                 Log.i("UserLogin", jsonGenerals.getStatus());
                 Message msg = new Message();
                 //此处判断服务器的响应，成功返回Success，失败返回Fail
-                if(jsonGenerals.getStatus().equals("Success")) {
+                if (jsonGenerals.getStatus().equals("Success")) {
                     msg.what = LOGIN_SUCCESS;
-                }else{
+                } else {
                     msg.what = LOGIN_FAIL;
                 }
                 msg.obj = jsonGenerals.getStatus();
