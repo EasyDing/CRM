@@ -29,7 +29,6 @@ public class UserLogin extends Activity implements View.OnClickListener {
     public static final int CLICK_CLIENT_MANAGE = 2;
     public static final int CLICK_FINANCING_MANAGE = 3;
     public static final int CONNECT_FAIL = 4;
-    public static final int CLIENT_CREATE_ACTIVITY = 101;
 
     Message message = new Message();
 
@@ -50,6 +49,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
 
     private TableRow clientTableRow;
     private TableRow financingTableRow;
+    private TableRow warehouseTableRow;
 
 
     @Override
@@ -62,6 +62,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
 
         clientTableRow = (TableRow) findViewById(R.id.client_tablerow);
         financingTableRow = (TableRow) findViewById(R.id.financing_tablerow);
+        warehouseTableRow = (TableRow)findViewById(R.id.warehouse_tablerow);
 
         orderManage = (Button) findViewById(R.id.order);
         warehouseManage = (Button) findViewById(R.id.warehouse);
@@ -119,7 +120,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
                             sendRequest(address, reqStr);
                             this.cancel();
                         }
-                    }, 500);
+                    }, 5000);
                     break;
             }
         }
@@ -141,12 +142,20 @@ public class UserLogin extends Activity implements View.OnClickListener {
             case R.id.client:
                 Log.i("UserLogin", "Click Client Manage");
                 financingTableRow.setVisibility(View.GONE);
+                warehouseTableRow.setVisibility(View.GONE);
                 clientTableRow.setVisibility(VISIBLE);
                 break;
             case R.id.financing:
                 Log.i("UserLogin", "Click Financing Manage");
                 clientTableRow.setVisibility(View.GONE);
+                warehouseTableRow.setVisibility(View.GONE);
                 financingTableRow.setVisibility(VISIBLE);
+                break;
+            case R.id.warehouse:
+                Log.i("UserLogin", "Click Warehouse Manage");
+                clientTableRow.setVisibility(View.GONE);
+                financingTableRow.setVisibility(View.GONE);
+                warehouseTableRow.setVisibility(VISIBLE);
                 break;
             case R.id.client_new:
                 Log.i("UserLogin", "Click Create Client");
