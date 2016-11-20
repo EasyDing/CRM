@@ -26,7 +26,8 @@ public class SelectClientAdapter extends ArrayAdapter<Data> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Data data = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
+        View view;
+        view = LayoutInflater.from(getContext()).inflate(resourceId,null);
         TextView clientName = (TextView)view.findViewById(R.id.select_client_listview_item_clientname);
         TextView clientPhone = (TextView)view.findViewById(R.id.select_client_listview_item_clientphone);
         TextView clientAdd = (TextView)view.findViewById(R.id.select_client_listview_item_clientadd);

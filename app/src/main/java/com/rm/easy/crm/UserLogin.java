@@ -115,7 +115,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
                         @Override
                         public void run() {
                             Log.i("UserLogin", "Reconnecting");
-                            String address = "http://zkcoffee.imwork.net/user/select_user.php";
+                            String address = "http://rmcoffee.imwork.net/user/select_user.php";
                             String reqStr = "uname=" + userName.getText() + "&upwd=" + userPwd.getText();
                             sendRequest(address, reqStr);
                             this.cancel();
@@ -135,7 +135,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
             case R.id.submit:
                 Log.i("UserLogin", "Click Submit");
                 Toast.makeText(UserLogin.this, "建立连接中，请稍候", Toast.LENGTH_SHORT).show();
-                String address = "http://zkcoffee.imwork.net/user/select_user.php";
+                String address = "http://rmcoffee.imwork.net/user/select_user.php";
                 String reqStr = "uname=" + userName.getText() + "&upwd=" + userPwd.getText();
                 sendRequest(address, reqStr);
                 break;

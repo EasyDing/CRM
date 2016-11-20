@@ -72,7 +72,7 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
                         public void run() {
                             Log.i("CreateClient", "Reconnecting");
                             String reqStr = "clientName=" + clientName.getText() + "&clientPhone=" + clientPhone.getText() + "&clientAdd=" + clientAdd.getText() + "&clientSex=" + getSex();
-                            String address = "http://zkcoffee.imwork.net/client/create_client.php";
+                            String address = "http://rmcoffee.imwork.net/client/create_client.php";
                             sendRequest(address, reqStr);
                             this.cancel();
                         }
@@ -93,7 +93,7 @@ public class CreateClient extends Activity implements View.OnClickListener, Radi
                 } else {
                     if (ValidatorUtil.isMobile(clientPhone.getText().toString())) {
                         String str = "clientName=" + clientName.getText() + "&clientPhone=" + clientPhone.getText() + "&clientAdd=" + clientAdd.getText() + "&clientSex=" + getSex();
-                        String address = "http://zkcoffee.imwork.net/client/create_client.php";
+                        String address = "http://rmcoffee.imwork.net/client/create_client.php";
                         sendRequest(address, str);
                     } else {
                         Toast.makeText(CreateClient.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
