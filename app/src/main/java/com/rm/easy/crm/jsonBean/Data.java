@@ -18,6 +18,24 @@ public class Data {
     private String clientAdd;
     private String clientSex;
     private String clientPhone;
+    //Warehouse
+
+    private String warehouseId;
+    private String warehouseName;
+
+    //warehouseItem
+    private String warehouseItemId;
+    private String warehouseItemName;
+    private String warehouseItemWeight;
+    private String warehouseItemWarehouseID;
+
+    //warehouseDetail
+    private String warehouseDetailId;
+    private String warehouseDetailDirection;
+    private String warehouseDetailWarehouseId;
+    private String warehouseDetailItemId;
+    private String warehouseDetailWeight;
+
 
     public String getClientId() {
         return clientId;
@@ -89,5 +107,93 @@ public class Data {
 
     public String getIdentity() {
         return identity;
+    }
+
+    public String getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(String warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
+
+    public String getWarehouseItemId() {
+        return warehouseItemId;
+    }
+
+    public void setWarehouseItemId(String warehouseItemId) {
+        this.warehouseItemId = warehouseItemId;
+    }
+
+    public String getWarehouseItemName() {
+        return warehouseItemName;
+    }
+
+    public void setWarehouseItemName(String warehouseItemName) {
+        this.warehouseItemName = warehouseItemName;
+    }
+
+    public String getWarehouseItemWeight() {
+        return warehouseItemWeight;
+    }
+
+    public void setWarehouseItemWeight(String warehouseItemWeight) {
+        this.warehouseItemWeight = warehouseItemWeight;
+    }
+
+    public String getWarehouseItemWarehouseID() {
+        return warehouseItemWarehouseID;
+    }
+
+    public void setWarehouseItemWarehouseID(String warehouseItemWarehouseID) {
+        this.warehouseItemWarehouseID = warehouseItemWarehouseID;
+    }
+
+    public String getWarehouseDetailId() {
+        return warehouseDetailId;
+    }
+
+    public void setWarehouseDetailId(String warehouseDetailId) {
+        this.warehouseDetailId = warehouseDetailId;
+    }
+
+    public String getWarehouseDetailDirection() {
+        return warehouseDetailDirection;
+    }
+
+    public void setWarehouseDetailDirection(String warehouseDetailDirection) {
+        this.warehouseDetailDirection = warehouseDetailDirection;
+    }
+
+    public String getWarehouseDetailWarehouseId() {
+        return warehouseDetailWarehouseId;
+    }
+
+    public void setWarehouseDetailWarehouseId(String warehouseDetailWarehouseId) {
+        this.warehouseDetailWarehouseId = warehouseDetailWarehouseId;
+    }
+
+    public String getWarehouseDetailItemId() {
+        return warehouseDetailItemId;
+    }
+
+    public void setWarehouseDetailItemId(String warehouseDetailItemId) {
+        this.warehouseDetailItemId = warehouseDetailItemId;
+    }
+
+    public String getWarehouseDetailWeight() {
+        return warehouseDetailWeight;
+    }
+
+    public void setWarehouseDetailWeight(String warehouseDetailWeight) {
+        this.warehouseDetailWeight = warehouseDetailWeight;
     }
 }

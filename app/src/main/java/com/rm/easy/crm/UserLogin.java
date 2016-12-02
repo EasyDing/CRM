@@ -43,7 +43,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
     private Button creatClient;
     private Button renewClient;
     private Button selectClient;
-    private Button deleteClient;
+    //private Button deleteClient;
     private Button creatFinancing;
 
 
@@ -72,7 +72,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
         creatClient = (Button) findViewById(R.id.client_new);
         renewClient = (Button) findViewById(R.id.client_renew);
         selectClient = (Button) findViewById(R.id.client_select);
-        deleteClient = (Button) findViewById(R.id.client_delete);
+        //deleteClient = (Button) findViewById(R.id.client_delete);
         creatFinancing = (Button) findViewById(R.id.financing_new);
         orderManage.setOnClickListener(this);
         warehouseManage.setOnClickListener(this);
@@ -82,7 +82,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
         creatClient.setOnClickListener(this);
         renewClient.setOnClickListener(this);
         selectClient.setOnClickListener(this);
-        deleteClient.setOnClickListener(this);
+        //deleteClient.setOnClickListener(this);
         creatFinancing.setOnClickListener(this);
 
 
