@@ -43,8 +43,10 @@ public class UserLogin extends Activity implements View.OnClickListener {
     private Button creatClient;
     private Button renewClient;
     private Button selectClient;
-    //private Button deleteClient;
     private Button creatFinancing;
+    private Button inventoryAdd;
+    private Button inventoryOut;
+    private Button selectInventory;
 
 
     private TableRow clientTableRow;
@@ -65,24 +67,33 @@ public class UserLogin extends Activity implements View.OnClickListener {
         warehouseTableRow = (TableRow)findViewById(R.id.warehouse_tablerow);
 
         orderManage = (Button) findViewById(R.id.order);
+        //Inventory
         warehouseManage = (Button) findViewById(R.id.warehouse);
+        inventoryAdd = (Button)findViewById(R.id.inventory_add);
+        inventoryOut = (Button)findViewById(R.id.inventory_out);
+        selectInventory = (Button)findViewById(R.id.inventory_select);
+        //Client
         clientManage = (Button) findViewById(R.id.client);
-        financingManage = (Button) findViewById(R.id.financing);
-        sendMsg = (Button) findViewById(R.id.submit);
         creatClient = (Button) findViewById(R.id.client_new);
         renewClient = (Button) findViewById(R.id.client_renew);
         selectClient = (Button) findViewById(R.id.client_select);
-        //deleteClient = (Button) findViewById(R.id.client_delete);
+        financingManage = (Button) findViewById(R.id.financing);
+        sendMsg = (Button) findViewById(R.id.submit);
+
         creatFinancing = (Button) findViewById(R.id.financing_new);
         orderManage.setOnClickListener(this);
+        //Inventory
         warehouseManage.setOnClickListener(this);
-        clientManage.setOnClickListener(this);
+        inventoryAdd.setOnClickListener(this);
+        inventoryOut.setOnClickListener(this);
+        selectInventory.setOnClickListener(this);
         financingManage.setOnClickListener(this);
         sendMsg.setOnClickListener(this);
+        //Client
+        clientManage.setOnClickListener(this);
         creatClient.setOnClickListener(this);
         renewClient.setOnClickListener(this);
         selectClient.setOnClickListener(this);
-        //deleteClient.setOnClickListener(this);
         creatFinancing.setOnClickListener(this);
 
 
@@ -145,6 +156,16 @@ public class UserLogin extends Activity implements View.OnClickListener {
                 warehouseTableRow.setVisibility(View.GONE);
                 clientTableRow.setVisibility(VISIBLE);
                 break;
+            case R.id.client_new:
+                Log.i("UserLogin", "Click Create Client");
+                Intent createClientIntent = new Intent(UserLogin.this, CreateClient.class);
+                startActivity(createClientIntent);
+                break;
+            case R.id.client_select:
+                Log.i("UserLogin", "Click Select Client");
+                Intent selectClientIntent = new Intent(UserLogin.this, SelectClient.class);
+                startActivity(selectClientIntent);
+                break;
             case R.id.financing:
                 Log.i("UserLogin", "Click Financing Manage");
                 clientTableRow.setVisibility(View.GONE);
@@ -157,15 +178,14 @@ public class UserLogin extends Activity implements View.OnClickListener {
                 financingTableRow.setVisibility(View.GONE);
                 warehouseTableRow.setVisibility(VISIBLE);
                 break;
-            case R.id.client_new:
-                Log.i("UserLogin", "Click Create Client");
-                Intent createClientIntent = new Intent(UserLogin.this, CreateClient.class);
-                startActivity(createClientIntent);
+            case R.id.inventory_add:
+                Log.i("UserLogin", "Click Inventory Add");
                 break;
-            case R.id.client_select:
-                Log.i("UserLogin", "Click Select Client");
-                Intent selectClientIntent = new Intent(UserLogin.this, SelectClient.class);
-                startActivity(selectClientIntent);
+            case R.id.inventory_out:
+                Log.i("UserLogin", "Click Inventory Out");
+                break;
+            case R.id.inventory_select:
+                Log.i("UserLogin", "Click Inventory Select");
                 break;
 
         }
