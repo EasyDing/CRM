@@ -26,8 +26,15 @@
         </activity>
         <activity
                 android:name=".client.SelectClient"
+                android:label="SelectClient"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+                android:name=".warehouse.CreateItem"
+                android:label="CreateItem"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>
