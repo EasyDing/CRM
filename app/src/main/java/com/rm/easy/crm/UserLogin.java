@@ -48,6 +48,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
     private Button inventoryAdd;
     private Button inventoryOut;
     private Button selectInventory;
+    private Button createInventoryItem;
 
 
     private TableRow clientTableRow;
@@ -73,6 +74,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
         inventoryAdd = (Button)findViewById(R.id.inventory_add);
         inventoryOut = (Button)findViewById(R.id.inventory_out);
         selectInventory = (Button)findViewById(R.id.inventory_select);
+        createInventoryItem = (Button)findViewById(R.id.inventory_item_create);
         //Client
         clientManage = (Button) findViewById(R.id.client);
         creatClient = (Button) findViewById(R.id.client_new);
@@ -88,6 +90,8 @@ public class UserLogin extends Activity implements View.OnClickListener {
         inventoryAdd.setOnClickListener(this);
         inventoryOut.setOnClickListener(this);
         selectInventory.setOnClickListener(this);
+        createInventoryItem.setOnClickListener(this);
+
         financingManage.setOnClickListener(this);
         sendMsg.setOnClickListener(this);
         //Client
@@ -188,6 +192,10 @@ public class UserLogin extends Activity implements View.OnClickListener {
                 break;
             case R.id.inventory_select:
                 Log.i("UserLogin", "Click Inventory Select");
+
+                break;
+            case R.id.inventory_item_create:
+                Log.i("UserLogin", "Click Create Item");
                 Intent createInventoryItemIntent = new Intent(UserLogin.this, CreateItem.class);
                 startActivity(createInventoryItemIntent);
                 break;
