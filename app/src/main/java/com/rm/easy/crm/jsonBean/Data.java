@@ -35,7 +35,15 @@ public class Data {
     private String warehouseDetailWarehouseId;
     private String warehouseDetailItemId;
     private String warehouseDetailWeight;
+    private String warehouseOperator;
 
+    public String getWarehouseOperator() {
+        return warehouseOperator;
+    }
+
+    public void setWarehouseOperator(String warehouseOperator) {
+        this.warehouseOperator = warehouseOperator;
+    }
 
     public String getClientId() {
         return clientId;

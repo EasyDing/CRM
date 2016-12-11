@@ -6,7 +6,6 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +16,7 @@ import com.rm.easy.crm.R;
 import com.rm.easy.crm.jsonBean.Data;
 import com.rm.easy.crm.jsonBean.JsonGeneral;
 import com.rm.easy.crm.iface.HttpCallbackListener;
-import com.rm.easy.crm.listviewAdapter.SelectClientAdapter;
+import com.rm.easy.crm.adapter.SelectClientAdapter;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
 

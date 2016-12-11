@@ -1,4 +1,4 @@
-package com.rm.easy.crm.listviewAdapter;
+package com.rm.easy.crm.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
