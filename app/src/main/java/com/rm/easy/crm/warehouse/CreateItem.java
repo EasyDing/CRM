@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -22,11 +23,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/12/9 0009.
  */
-public class CreateItem extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class CreateItem extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
 
-    private static final int SELECT_SUCCESS = 0;
-    private static final int SELECT_FAIL = 1;
+    private static final int WAREHOUSE_INIT_SUCCESS = 0;
+    private static final int WAREHOUSE_INIT_FAIL = 1;
 
     //Init widget
 
@@ -41,15 +42,10 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
     private List<String> warehouseList = new ArrayList();
 
-    public JsonGeneral getjG() {
-        return jG;
-    }
 
-    public void setjG(JsonGeneral jG) {
-        this.jG = jG;
-    }
 
     private JsonGeneral jG;
+    public String weight;
 
 
     @Override
@@ -64,18 +60,20 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
         createItemSubmit = (Button)findViewById(R.id.create_item_submit);
 
         createItemSubmit.setOnClickListener(this);
-
+        weightUnitRadioGroup.setOnCheckedChangeListener(this);
         selectWarehouse.setOnItemSelectedListener(this);
     }
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-
-                case SELECT_SUCCESS:
+                case WAREHOUSE_INIT_SUCCESS:
                     SelectWarehouseAdapter arr_adapter = new SelectWarehouseAdapter(CreateItem.this, android.R.layout.simple_spinner_item, warehouseList);
                     arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     selectWarehouse.setAdapter(arr_adapter);
+                    break;
+                case WAREHOUSE_INIT_FAIL:
+                    Toast.makeText(CreateItem.this, "获取仓库信息失败", 500).show();
                     break;
 
             }
@@ -106,6 +104,15 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+    //RadioGroup 接口实例化
+
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup,  int i) {
+        RadioButton rb = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+        setWeight(rb.getTag().toString());
+        Log.i("CreateItem", "U Click: "+getWeight());
+    }
 
     private void getResponse(String address){
         HttpUtil.getHttpResponse(address, new HttpCallbackListener() {
@@ -121,10 +128,10 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 }
                 Message msg = new Message();
                 if (jsonGenerals.getStatus().equals("Success")) {
-                    msg.what = SELECT_SUCCESS;
+                    msg.what = WAREHOUSE_INIT_SUCCESS;
                     msg.obj = response;
                 } else {
-                    msg.what = SELECT_FAIL;
+                    msg.what = WAREHOUSE_INIT_FAIL;
                 }
                 handler.sendMessage(msg);
 
@@ -135,5 +142,25 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
             }
         });
+    }
+
+
+    //Getter&Setter
+
+
+    public JsonGeneral getjG() {
+        return jG;
+    }
+
+    public void setjG(JsonGeneral jG) {
+        this.jG = jG;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 }

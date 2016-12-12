@@ -70,6 +70,7 @@
             <RadioButton
                     android:id="@+id/g"
                     android:text="克"
+                    android:tag="g"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -77,12 +78,14 @@
             <RadioButton
                     android:id="@+id/kg"
                     android:text="千克"
+                    android:tag="kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <RadioButton
                     android:id="@+id/ton"
                     android:text="吨"
+                    android:tag="t"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </RadioGroup>
