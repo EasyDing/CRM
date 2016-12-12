@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.rm.easy.crm.R;
-import com.rm.easy.crm.adapter.SelectClientAdapter;
 import com.rm.easy.crm.adapter.SelectWarehouseAdapter;
-import com.rm.easy.crm.client.SelectClient;
 import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.jsonBean.JsonGeneral;
 import com.rm.easy.crm.util.GsonUtil;
@@ -28,6 +25,8 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
     private static final int WAREHOUSE_INIT_SUCCESS = 0;
     private static final int WAREHOUSE_INIT_FAIL = 1;
+    private static final int CREATE_ITEM_SUCCESS = 3;
+    private static final int CREATE_ITEM_FAIL = 4;
 
     //Init widget
 
@@ -75,6 +74,12 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 case WAREHOUSE_INIT_FAIL:
                     Toast.makeText(CreateItem.this, "获取仓库信息失败", 500).show();
                     break;
+                case CREATE_ITEM_SUCCESS:
+                    Toast.makeText(CreateItem.this, "保存成功", Toast.LENGTH_SHORT).show();
+                    break;
+                case CREATE_ITEM_FAIL:
+                    Toast.makeText(CreateItem.this, "保存失败", Toast.LENGTH_SHORT).show();
+                    break;
 
             }
         }
@@ -86,7 +91,7 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
         switch (view.getId()){
             case R.id.create_item_submit:
                 Log.i("CreateItem","Click Submit");
-
+                //调用sendRequest()发送保存数据请求
                 break;
             default:
                 break;
@@ -105,8 +110,6 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
     }
     //RadioGroup 接口实例化
-
-
     @Override
     public void onCheckedChanged(RadioGroup radioGroup,  int i) {
         RadioButton rb = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
@@ -135,6 +138,29 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 }
                 handler.sendMessage(msg);
 
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+
+    private void sendRequest(String address, String str){
+        HttpUtil.sendHttpRequest(address, str, new HttpCallbackListener() {
+            @Override
+            public void onFinish(String response) {
+                Log.i("CreateItem",response);
+                JsonGeneral jsonGenerals = GsonUtil.parseJsonWithGson(response, JsonGeneral.class);
+                Log.i("CreateItem", jsonGenerals.getStatus());
+                Message msg = new Message();
+                if (jsonGenerals.getStatus().equals("Success")){
+                    msg.what = CREATE_ITEM_SUCCESS;
+                }else{
+                    msg.what = CREATE_ITEM_FAIL;
+                }
+                handler.sendMessage(msg);
             }
 
             @Override
