@@ -65,8 +65,6 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
         createItemSubmit.setOnClickListener(this);
 
-
-
         selectWarehouse.setOnItemSelectedListener(this);
     }
 
@@ -75,7 +73,7 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
             switch (msg.what) {
 
                 case SELECT_SUCCESS:
-                    SelectWarehouseAdapter arr_adapter = new SelectWarehouseAdapter(CreateItem.this, android.R.layout.simple_spinner_item, getjG().getData());
+                    SelectWarehouseAdapter arr_adapter = new SelectWarehouseAdapter(CreateItem.this, android.R.layout.simple_spinner_item, warehouseList);
                     arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     selectWarehouse.setAdapter(arr_adapter);
                     break;
@@ -99,11 +97,9 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
     }
 
     //Spinner 接口实例化
-
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(CreateItem.this, getjG().getData().get(i).getWarehouseName(), 500).show();
+        Toast.makeText(CreateItem.this, warehouseList.get(i).toString(), 500).show();
     }
 
     @Override
@@ -119,6 +115,10 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 JsonGeneral jsonGenerals = new GsonUtil().parseJsonWithGson(response, JsonGeneral.class);
                 setjG(jsonGenerals);
                 Log.i("CreateItem",jsonGenerals.getStatus());
+                while(jsonGenerals.getData().iterator().hasNext()){
+                    warehouseList.add(jsonGenerals.getData().get(0).getWarehouseName().toString());
+                    jsonGenerals.getData().remove(0);
+                }
                 Message msg = new Message();
                 if (jsonGenerals.getStatus().equals("Success")) {
                     msg.what = SELECT_SUCCESS;
@@ -127,13 +127,6 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                     msg.what = SELECT_FAIL;
                 }
                 handler.sendMessage(msg);
-//                while(jsonGeneral.getData().iterator().hasNext()){
-//                    warehouseList.add(jsonGeneral.getData().get(0).getWarehouseName().toString());
-//                    jsonGeneral.getData().remove(0);
-//                }
-
-//                final int size = warehouseList.size();
-//                warehouseArray = (String[])warehouseList.toArray();
 
             }
 

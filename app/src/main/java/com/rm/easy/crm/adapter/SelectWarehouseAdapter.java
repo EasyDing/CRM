@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * Created by Easy.D on 2016/11/13.
  */
-public class SelectWarehouseAdapter extends ArrayAdapter<Data> {
+public class SelectWarehouseAdapter extends ArrayAdapter<String> {
 
     private int resourceId;
-    private List<Data> list;
+    private List<String> list;
 
-    public SelectWarehouseAdapter(Context context, int textViewResourceId, List<Data> objs){
+    public SelectWarehouseAdapter(Context context, int textViewResourceId, List<String> objs){
         super(context, textViewResourceId, objs);
         resourceId = textViewResourceId;
         list = objs;
@@ -27,11 +27,9 @@ public class SelectWarehouseAdapter extends ArrayAdapter<Data> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Data data = getItem(position);
-        View view;
         convertView = LayoutInflater.from(getContext()).inflate(resourceId,null);
         TextView warehouseName = (TextView)convertView.findViewById(android.R.id.text1);
-        warehouseName.setText(list.get(position).getWarehouseName());
+        warehouseName.setText(list.get(position).toString());
         return convertView;
     }
 }
