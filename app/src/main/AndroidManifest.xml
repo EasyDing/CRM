@@ -34,7 +34,8 @@
                 android:label="CreateItem"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
+        <activity android:name=".warehouse.AddItem">
+        </activity>
     </application>
 
 </manifest>

@@ -55,6 +55,8 @@ public class UserLogin extends Activity implements View.OnClickListener {
     private TableRow financingTableRow;
     private TableRow warehouseTableRow;
 
+    private String userNameHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,7 @@ public class UserLogin extends Activity implements View.OnClickListener {
                     clientManage.setVisibility(VISIBLE);
                     financingManage.setVisibility(VISIBLE);
                     Toast.makeText(UserLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    setUserNameHolder(userName.getText().toString());
                     break;
                 case LOGIN_FAIL:
                     String failRes = (String) msg.obj;
@@ -232,5 +235,13 @@ public class UserLogin extends Activity implements View.OnClickListener {
 
             }
         });
+    }
+
+    public String getUserNameHolder() {
+        return userNameHolder;
+    }
+
+    public void setUserNameHolder(String userNameHolder) {
+        this.userNameHolder = userNameHolder;
     }
 }

@@ -172,8 +172,6 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
 
     //Getter&Setter
-
-
     public JsonGeneral getjG() {
         return jG;
     }
