@@ -27,6 +27,10 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
     private static final int WAREHOUSE_INIT_FAIL = 1;
     private static final int CREATE_ITEM_SUCCESS = 3;
     private static final int CREATE_ITEM_FAIL = 4;
+    private static final int CONNECT_FAIL = 5;
+    private static final int CHECK_ITEM_OK = 6; //数据库中存在
+    private static final int CHECK_ITEM_ERROR = 7; //数据库中不存在，允许插入数据
+    private static final String HOST = "http://rmcoffee.imwork.net/";
 
     //Init widget
 
@@ -44,14 +48,15 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
 
     private JsonGeneral jG;
-    public String weight;
+    private Float weight;
+    private String warehouseName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
-        getResponse("http://rmcoffee.imwork.net/warehouse/select_warehouse.php");
+        getResponse(HOST+"warehouse/select_warehouse.php",WAREHOUSE_INIT_SUCCESS,WAREHOUSE_INIT_FAIL);
         itemName = (EditText)findViewById(R.id.create_item_name_edit);
         itemWeight = (EditText)findViewById(R.id.create_item_inventory_edit);
         weightUnitRadioGroup = (RadioGroup)findViewById(R.id.weight_unit_radiogroup);
@@ -76,9 +81,24 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                     break;
                 case CREATE_ITEM_SUCCESS:
                     Toast.makeText(CreateItem.this, "保存成功", Toast.LENGTH_SHORT).show();
+
                     break;
                 case CREATE_ITEM_FAIL:
                     Toast.makeText(CreateItem.this, "保存失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case CONNECT_FAIL:
+                    Toast.makeText(CreateItem.this, "连接超时，请手动重试", Toast.LENGTH_SHORT).show();
+                    break;
+                case CHECK_ITEM_OK:
+                    Log.i("CreateITem",msg.obj.toString());
+                    Toast.makeText(CreateItem.this, "数据已存在", Toast.LENGTH_SHORT).show();
+                    break;
+                case CHECK_ITEM_ERROR:
+                    Log.i("CreateITem",msg.obj.toString());
+                    //调用sendRequest()发送保存数据请求
+                    String str = "warehouseItemName=" + itemName.getText() + "&warehouseItemWeight=" + getWeight() + "&warehouseItemWarehouseName=" + getWarehouseName();
+                    String address = HOST + "warehouse/create_item.php";
+                    sendRequest(address,str,CREATE_ITEM_SUCCESS,CREATE_ITEM_FAIL);
                     break;
 
             }
@@ -91,7 +111,12 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
         switch (view.getId()){
             case R.id.create_item_submit:
                 Log.i("CreateItem","Click Submit");
-                //调用sendRequest()发送保存数据请求
+                //检查数据库中是否存在相同数据
+                String checkStr = "warehouseItemName=" + itemName.getText() + "&warehouseItemWarehouseName=" + getWarehouseName();
+                String checkAddress = HOST +"warehouse/check_item.php";
+                sendRequest(checkAddress,checkStr, CHECK_ITEM_OK, CHECK_ITEM_ERROR);
+
+
                 break;
             default:
                 break;
@@ -103,6 +128,7 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         Toast.makeText(CreateItem.this, warehouseList.get(i).toString(), 500).show();
+        setWarehouseName(warehouseList.get(i).toString());
     }
 
     @Override
@@ -112,12 +138,29 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
     //RadioGroup 接口实例化
     @Override
     public void onCheckedChanged(RadioGroup radioGroup,  int i) {
-        RadioButton rb = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
-        setWeight(rb.getTag().toString());
-        Log.i("CreateItem", "U Click: "+getWeight());
+        if (itemName.getText().toString().equals("") || itemWeight.getText().toString().equals("")){
+
+            Toast.makeText(CreateItem.this, "请输入品类", Toast.LENGTH_SHORT).show();
+        }else{
+
+            RadioButton rb = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+            //预处理重量单位，保存全部以kg进行保存
+            switch (rb.getTag().toString()){
+                case "g":
+                    setWeight(Float.parseFloat(itemWeight.getText().toString())/1000);
+                    break;
+                case "t":
+                    setWeight(Float.parseFloat(itemWeight.getText().toString())*1000);
+                    break;
+                case "kg":
+                    setWeight(Float.parseFloat(itemWeight.getText().toString()));
+                    break;
+            }
+            Log.i("CreateItem", "U Click: " + getWeight().toString());
+        }
     }
 
-    private void getResponse(String address){
+    private void getResponse(String address, final int success, final int fail){
         HttpUtil.getHttpResponse(address, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
@@ -131,10 +174,11 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 }
                 Message msg = new Message();
                 if (jsonGenerals.getStatus().equals("Success")) {
-                    msg.what = WAREHOUSE_INIT_SUCCESS;
+                    msg.what = success;
                     msg.obj = response;
                 } else {
-                    msg.what = WAREHOUSE_INIT_FAIL;
+                    msg.what = fail;
+                    msg.obj = response;
                 }
                 handler.sendMessage(msg);
 
@@ -142,12 +186,15 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
 
             @Override
             public void onError(Exception e) {
-
+                Message msg = new Message();
+                msg.what = CONNECT_FAIL;
+                handler.sendMessage(msg);
+                e.printStackTrace();
             }
         });
     }
 
-    private void sendRequest(String address, String str){
+    private void sendRequest(String address, String str, final int success, final int fail){
         HttpUtil.sendHttpRequest(address, str, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
@@ -156,16 +203,21 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 Log.i("CreateItem", jsonGenerals.getStatus());
                 Message msg = new Message();
                 if (jsonGenerals.getStatus().equals("Success")){
-                    msg.what = CREATE_ITEM_SUCCESS;
+                    msg.what = success;
+                    msg.obj = response;
                 }else{
-                    msg.what = CREATE_ITEM_FAIL;
+                    msg.what = fail;
+                    msg.obj = response;
                 }
                 handler.sendMessage(msg);
             }
 
             @Override
             public void onError(Exception e) {
-
+                Message msg = new Message();
+                msg.what = CONNECT_FAIL;
+                handler.sendMessage(msg);
+                e.printStackTrace();
             }
         });
     }
@@ -180,11 +232,19 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
         this.jG = jG;
     }
 
-    public String getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 }

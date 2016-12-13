@@ -27,7 +27,7 @@ public class Data {
     private String warehouseItemId;
     private String warehouseItemName;
     private String warehouseItemWeight;
-    private String warehouseItemWarehouseID;
+    private String warehouseItemWarehouseName;
 
     //warehouseDetail
     private String warehouseDetailId;
@@ -158,11 +158,11 @@ public class Data {
     }
 
     public String getWarehouseItemWarehouseID() {
-        return warehouseItemWarehouseID;
+        return warehouseItemWarehouseName;
     }
 
     public void setWarehouseItemWarehouseID(String warehouseItemWarehouseID) {
-        this.warehouseItemWarehouseID = warehouseItemWarehouseID;
+        this.warehouseItemWarehouseName = warehouseItemWarehouseID;
     }
 
     public String getWarehouseDetailId() {
