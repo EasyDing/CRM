@@ -100,7 +100,6 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                     String address = HOST + "warehouse/create_item.php";
                     sendRequest(address,str,CREATE_ITEM_SUCCESS,CREATE_ITEM_FAIL);
                     break;
-
             }
         }
     };
