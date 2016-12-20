@@ -36,6 +36,10 @@
         </activity>
         <activity android:name=".warehouse.AddItem">
         </activity>
+        <activity android:name=".adapter.SelectInventoryAdapter">
+        </activity>
+        <activity android:name=".warehouse.SelectWarehouse">
+        </activity>
     </application>
 
 </manifest>
