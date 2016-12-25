@@ -31,7 +31,7 @@ public class SelectInventoryAdapter extends ArrayAdapter<Data> {
         TextView itemName = (TextView)view.findViewById(R.id.select_inventory_listview_item_name);
         TextView itemWeight = (TextView)view.findViewById(R.id.select_inventory_listview_item_weight);
         itemName.setText(data.getWarehouseItemName());
-        itemWeight.setText(data.getWarehouseItemName());
+        itemWeight.setText(data.getWarehouseItemWeight());
         return view;
     }
 }

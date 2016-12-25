@@ -40,11 +40,31 @@
                 android:text="获取库存信息"
         />
     </TableRow>
+    <TableRow android:gravity="center">
+
+        <TextView
+                android:text="品名"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+
+        />
+        <TextView
+                android:text="库存量/kg"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"/>
+
+    </TableRow>
 
     //库存管理
     <TableRow android:gravity="center" android:layout_height="wrap_content" android:layout_width="wrap_content">
         <ListView
-                android:id="@+id/listview_select_client"
+                android:id="@+id/listview_select_invnetory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
         >

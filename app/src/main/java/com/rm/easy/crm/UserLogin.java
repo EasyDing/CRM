@@ -16,6 +16,7 @@ import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
 import com.rm.easy.crm.warehouse.CreateItem;
+import com.rm.easy.crm.warehouse.SelectWarehouse;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -195,7 +196,8 @@ public class UserLogin extends Activity implements View.OnClickListener {
                 break;
             case R.id.inventory_select:
                 Log.i("UserLogin", "Click Inventory Select");
-
+                Intent selectWarehouseIntent = new Intent(UserLogin.this, SelectWarehouse.class);
+                startActivity(selectWarehouseIntent);
                 break;
             case R.id.inventory_item_create:
                 Log.i("UserLogin", "Click Create Item");

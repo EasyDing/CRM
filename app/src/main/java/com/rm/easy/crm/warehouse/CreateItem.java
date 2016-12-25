@@ -167,12 +167,13 @@ public class CreateItem extends Activity implements View.OnClickListener, Adapte
                 JsonGeneral jsonGenerals = new GsonUtil().parseJsonWithGson(response, JsonGeneral.class);
                 setjG(jsonGenerals);
                 Log.i("CreateItem",jsonGenerals.getStatus());
-                while(jsonGenerals.getData().iterator().hasNext()){
-                    warehouseList.add(jsonGenerals.getData().get(0).getWarehouseName().toString());
-                    jsonGenerals.getData().remove(0);
-                }
+
                 Message msg = new Message();
                 if (jsonGenerals.getStatus().equals("Success")) {
+                    while(jsonGenerals.getData().iterator().hasNext()){
+                        warehouseList.add(jsonGenerals.getData().get(0).getWarehouseName().toString());
+                        jsonGenerals.getData().remove(0);
+                    }
                     msg.what = success;
                     msg.obj = response;
                 } else {
