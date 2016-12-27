@@ -34,9 +34,10 @@
                 android:label="CreateItem"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".warehouse.AddItem">
-        </activity>
-        <activity android:name=".adapter.SelectInventoryAdapter">
+        <activity
+                android:name=".warehouse.AddItem"
+                android:label="AddItem"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".warehouse.SelectWarehouse"

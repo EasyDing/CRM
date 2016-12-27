@@ -15,6 +15,7 @@ import com.rm.easy.crm.client.SelectClient;
 import com.rm.easy.crm.iface.HttpCallbackListener;
 import com.rm.easy.crm.util.GsonUtil;
 import com.rm.easy.crm.util.HttpUtil;
+import com.rm.easy.crm.warehouse.AddItem;
 import com.rm.easy.crm.warehouse.CreateItem;
 import com.rm.easy.crm.warehouse.SelectWarehouse;
 
@@ -189,7 +190,8 @@ public class UserLogin extends Activity implements View.OnClickListener {
                 break;
             case R.id.inventory_add:
                 Log.i("UserLogin", "Click Inventory Add");
-
+                Intent inventoryAdd = new Intent(UserLogin.this, AddItem.class);
+                startActivity(inventoryAdd);
                 break;
             case R.id.inventory_out:
                 Log.i("UserLogin", "Click Inventory Out");
